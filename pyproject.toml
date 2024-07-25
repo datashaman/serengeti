@@ -1,0 +1,65 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "serengeti"
+dynamic = ["version"]
+description = ''
+readme = "README.md"
+requires-python = ">=3.8"
+license = "MIT"
+keywords = []
+authors = [
+  { name = "Marlin Forbes", email = "marlinf@datashaman.com" },
+]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3.8",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: Implementation :: CPython",
+  "Programming Language :: Python :: Implementation :: PyPy",
+]
+dependencies = [
+    "torch",
+    "torchvision",
+    "transformers",
+]
+
+[project.urls]
+Documentation = "https://github.com/Marlin Forbes/serengeti#readme"
+Issues = "https://github.com/Marlin Forbes/serengeti/issues"
+Source = "https://github.com/Marlin Forbes/serengeti"
+
+[tool.hatch.version]
+path = "src/serengeti/__about__.py"
+
+[tool.hatch.envs.types]
+extra-dependencies = [
+  "mypy>=1.0.0",
+]
+[tool.hatch.envs.types.scripts]
+check = "mypy --install-types --non-interactive {args:src/serengeti tests}"
+
+[tool.coverage.run]
+source_pkgs = ["serengeti", "tests"]
+branch = true
+parallel = true
+omit = [
+  "src/serengeti/__about__.py",
+]
+
+[tool.coverage.paths]
+serengeti = ["src/serengeti", "*/serengeti/src/serengeti"]
+tests = ["tests", "*/serengeti/tests"]
+
+[tool.coverage.report]
+exclude_lines = [
+  "no cov",
+  "if __name__ == .__main__.:",
+  "if TYPE_CHECKING:",
+]
